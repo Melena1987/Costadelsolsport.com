@@ -262,7 +262,12 @@ const CookieBanner: React.FC<{ onOpenPolicy: () => void, onAccept: () => void }>
 // --- Main App Component ---
 
 const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<EventStatus>('upcoming');
+  // Determine initial tab based on data
+  const [activeTab, setActiveTab] = useState<EventStatus>(() => {
+    const hasUpcoming = EVENTS.some(event => event.status === 'upcoming');
+    return hasUpcoming ? 'upcoming' : 'past';
+  });
+
   const [showPolicy, setShowPolicy] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
 
