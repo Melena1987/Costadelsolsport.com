@@ -11,6 +11,7 @@ import { SectionHeader } from './components/SectionHeader';
 import { Footer } from './components/Footer';
 import { MobileNav } from './components/MobileNav';
 import { CookiePolicyModal, CookieBanner } from './components/CookieConsent';
+import { JsonLd } from './components/JsonLd';
 
 const App: React.FC = () => {
   // Determine initial tab based on data
@@ -21,6 +22,16 @@ const App: React.FC = () => {
 
   const [showPolicy, setShowPolicy] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
+
+  // Dynamic Page Title for SEO
+  useEffect(() => {
+    const baseTitle = "Costa del Sol Sport | Agenda Deportiva";
+    if (activeTab === 'upcoming') {
+      document.title = `Próximos Eventos - ${baseTitle}`;
+    } else {
+      document.title = `Resultados y Eventos Pasados - ${baseTitle}`;
+    }
+  }, [activeTab]);
 
   useEffect(() => {
     // Check if user has already accepted cookies
@@ -42,6 +53,9 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-50 text-slate-800 font-sans selection:bg-orange-200 flex flex-col pb-20 md:pb-0">
       
+      {/* SEO: Inject Structured Data */}
+      <JsonLd events={EVENTS} />
+
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
       
       <Hero />
