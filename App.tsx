@@ -20,6 +20,12 @@ const App: React.FC = () => {
     return hasUpcoming ? 'upcoming' : 'past';
   });
 
+  // Hero visibility state - persisted in localStorage
+  const [showHero, setShowHero] = useState(() => {
+    const isHidden = localStorage.getItem('cds_hide_hero');
+    return isHidden !== 'true';
+  });
+
   const [showPolicy, setShowPolicy] = useState(false);
   const [showBanner, setShowBanner] = useState(false);
 
@@ -48,6 +54,11 @@ const App: React.FC = () => {
     setShowBanner(false);
   };
 
+  const handleDismissHero = () => {
+    setShowHero(false);
+    localStorage.setItem('cds_hide_hero', 'true');
+  };
+
   const filteredEvents = EVENTS.filter(event => event.status === activeTab);
 
   return (
@@ -58,7 +69,8 @@ const App: React.FC = () => {
 
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />
       
-      <Hero />
+      {/* Conditionally render Hero based on user preference */}
+      {showHero && <Hero onDismiss={handleDismissHero} />}
 
       {/* Main Content Area */}
       <main className="container mx-auto px-4 py-12 -mt-8 relative z-20 flex-grow">
@@ -82,11 +94,22 @@ const App: React.FC = () => {
         </div>
 
         {/* Mobile Section Title (Simple) */}
-        <div className="md:hidden mb-6 flex items-center gap-2 text-cds-blue">
-          {activeTab === 'upcoming' ? <Trophy className="w-5 h-5 text-cds-orange" /> : <History className="w-5 h-5 text-cds-orange" />}
-          <h2 className="text-xl font-bold">
-            {activeTab === 'upcoming' ? 'Próximos Eventos' : 'Histórico de Eventos'}
-          </h2>
+        <div className="md:hidden mb-6 flex items-center justify-between text-cds-blue mt-4">
+          <div className="flex items-center gap-2">
+            {activeTab === 'upcoming' ? <Trophy className="w-5 h-5 text-cds-orange" /> : <History className="w-5 h-5 text-cds-orange" />}
+            <h2 className="text-xl font-bold">
+              {activeTab === 'upcoming' ? 'Próximos Eventos' : 'Histórico de Eventos'}
+            </h2>
+          </div>
+          {/* Option to restore hero if hidden (optional, but good UX) */}
+          {!showHero && (
+            <button 
+              onClick={() => { setShowHero(true); localStorage.removeItem('cds_hide_hero'); }}
+              className="text-xs text-gray-400 hover:text-cds-orange"
+            >
+              Ver info
+            </button>
+          )}
         </div>
 
         {/* Content Grid */}
