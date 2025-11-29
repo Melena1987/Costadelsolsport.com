@@ -16,4 +16,7 @@ export interface SportEvent {
     label: string;
     value: string;
   };
+  // ISO format dates for Calendar integration (YYYYMMDD or YYYYMMDDTHHmmSS)
+  isoStart: string;
+  isoEnd: string; 
 }

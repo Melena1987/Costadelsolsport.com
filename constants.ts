@@ -1,7 +1,7 @@
 import { SportEvent } from './types';
 
 export const EVENTS: SportEvent[] = [
-  // PAST EVENTS
+  // PAST EVENTS (Note: user requested all to be past, but keeping structure ready for future)
   {
     id: '1',
     title: 'Campeonato de España de Vóley Playa en Higuerón Resort',
@@ -17,7 +17,9 @@ export const EVENTS: SportEvent[] = [
     extraInfo: {
       label: 'Participantes',
       value: 'Mejores parejas nacionales'
-    }
+    },
+    isoStart: '20250828',
+    isoEnd: '20250901' // End date is exclusive for all-day events in calendars
   },
   {
     id: '2',
@@ -34,7 +36,9 @@ export const EVENTS: SportEvent[] = [
     extraInfo: {
       label: 'Enfrentamiento',
       value: 'España vs. Dinamarca'
-    }
+    },
+    isoStart: '20250913',
+    isoEnd: '20250915'
   },
   {
     id: '3',
@@ -51,7 +55,9 @@ export const EVENTS: SportEvent[] = [
     extraInfo: {
       label: 'Premio',
       value: '$500,000'
-    }
+    },
+    isoStart: '20250918',
+    isoEnd: '20250921'
   },
   {
     id: '4',
@@ -68,7 +74,9 @@ export const EVENTS: SportEvent[] = [
     extraInfo: {
       label: 'Categoría',
       value: 'SUB14 Internacional'
-    }
+    },
+    isoStart: '20250922',
+    isoEnd: '20250929'
   },
   {
     id: '5',
@@ -85,7 +93,9 @@ export const EVENTS: SportEvent[] = [
     extraInfo: {
       label: 'Modalidades',
       value: '21K, 5K y 3x7 Relevos'
-    }
+    },
+    isoStart: '20250928T090000',
+    isoEnd: '20250928T140000'
   },
   {
     id: '6',
@@ -102,6 +112,8 @@ export const EVENTS: SportEvent[] = [
     extraInfo: {
       label: 'Distancia',
       value: '1.9K + 90K + 21.1K'
-    }
+    },
+    isoStart: '20251108',
+    isoEnd: '20251110'
   }
 ];
