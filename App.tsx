@@ -57,7 +57,7 @@ const EventCard: React.FC<{ event: SportEvent }> = ({ event }) => {
             </div>
           </div>
           
-          {!isPast && (
+          {!isPast && event.time && (
              <div className="flex items-start gap-3">
               <Clock className="w-5 h-5 text-cds-orange shrink-0 mt-0.5" />
               <div>
@@ -75,6 +75,17 @@ const EventCard: React.FC<{ event: SportEvent }> = ({ event }) => {
               <span className="text-xs text-gray-500 block">{event.location}</span>
             </div>
           </div>
+
+          {/* Extra Info (Highlighted) */}
+          {event.extraInfo && (
+            <div className="flex items-start gap-3">
+              <Trophy className="w-5 h-5 text-cds-orange shrink-0 mt-0.5" />
+              <div>
+                <span className="block text-xs text-gray-400 font-semibold uppercase">{event.extraInfo.label}</span>
+                <span className="text-sm font-medium text-gray-800">{event.extraInfo.value}</span>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Action Button */}
@@ -88,7 +99,7 @@ const EventCard: React.FC<{ event: SportEvent }> = ({ event }) => {
               : 'bg-cds-blue text-white hover:bg-cds-orange shadow-lg hover:shadow-orange-500/30'
           }`}
         >
-          {isPast ? 'Ver Resultados' : 'Sitio Oficial'}
+          {isPast ? 'Ver Resultados' : 'Más Información'}
           {isPast ? <ExternalLink className="w-4 h-4" /> : <ArrowRight className="w-4 h-4" />}
         </a>
       </div>

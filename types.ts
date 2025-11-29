@@ -12,4 +12,8 @@ export interface SportEvent {
   url: string;
   imageUrl: string;
   category: string;
+  extraInfo?: {
+    label: string;
+    value: string;
+  };
 }
