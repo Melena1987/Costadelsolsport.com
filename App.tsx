@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Calendar, MapPin, Clock, ArrowRight, ExternalLink, Trophy, History, X, ShieldCheck, Instagram, Facebook, CalendarPlus, Download } from 'lucide-react';
+import { Calendar, MapPin, Clock, ArrowRight, ExternalLink, Trophy, History, X, ShieldCheck, Instagram, Facebook, CalendarPlus, Download, Home } from 'lucide-react';
 import { EVENTS } from './constants';
 import { SportEvent, EventStatus } from './types';
 
@@ -327,12 +327,12 @@ const CookiePolicyModal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
 const CookieBanner: React.FC<{ onOpenPolicy: () => void, onAccept: () => void }> = ({ onOpenPolicy, onAccept }) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 animate-in slide-in-from-bottom-5 duration-500">
+    <div className="fixed bottom-20 md:bottom-0 left-0 right-0 z-50 p-4 animate-in slide-in-from-bottom-5 duration-500">
         <div className="container mx-auto max-w-5xl bg-white/95 backdrop-blur-md border border-gray-200 shadow-2xl rounded-2xl p-4 md:p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="text-sm text-gray-600 flex-grow text-center sm:text-left">
                 <p>
-                    <span className="font-bold text-cds-blue">Valoramos tu privacidad.</span> Este sitio utiliza cookies propias y de terceros para mejorar tu experiencia de usuario. 
-                    Puedes consultar nuestra <button onClick={onOpenPolicy} className="text-cds-orange font-bold hover:underline">Política de Cookies</button> para más información.
+                    <span className="font-bold text-cds-blue">Valoramos tu privacidad.</span> Este sitio utiliza cookies propias y de terceros. 
+                    <button onClick={onOpenPolicy} className="text-cds-orange font-bold hover:underline ml-1">Ver Política</button>.
                 </p>
             </div>
             <div className="flex gap-3 shrink-0">
@@ -378,13 +378,14 @@ const App: React.FC = () => {
   const filteredEvents = EVENTS.filter(event => event.status === activeTab);
 
   return (
-    <div className="min-h-screen bg-gray-50 text-slate-800 font-sans selection:bg-orange-200 flex flex-col">
+    <div className="min-h-screen bg-gray-50 text-slate-800 font-sans selection:bg-orange-200 flex flex-col pb-20 md:pb-0">
       
       {/* Header */}
       <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
         <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
           <Logo />
-          <nav className="flex gap-6 text-sm font-semibold text-gray-600">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex gap-6 text-sm font-semibold text-gray-600">
             <button 
               onClick={() => setActiveTab('upcoming')}
               className={`hover:text-cds-orange transition-colors ${activeTab === 'upcoming' ? 'text-cds-orange' : ''}`}
@@ -424,8 +425,8 @@ const App: React.FC = () => {
       {/* Main Content Area */}
       <main className="container mx-auto px-4 py-12 -mt-8 relative z-20 flex-grow">
         
-        {/* Navigation Tabs (Visual Cards) */}
-        <div className="flex flex-col md:flex-row justify-center gap-4 mb-12">
+        {/* Navigation Tabs (Visual Cards) - HIDDEN ON MOBILE */}
+        <div className="hidden md:flex flex-col md:flex-row justify-center gap-4 mb-12">
           <SectionHeader 
             title="Próximos Eventos" 
             subtitle="Calendario de competiciones futuras"
@@ -440,6 +441,14 @@ const App: React.FC = () => {
             isActive={activeTab === 'past'}
             onClick={() => setActiveTab('past')}
           />
+        </div>
+
+        {/* Mobile Section Title (Simple) */}
+        <div className="md:hidden mb-6 flex items-center gap-2 text-cds-blue">
+          {activeTab === 'upcoming' ? <Trophy className="w-5 h-5 text-cds-orange" /> : <History className="w-5 h-5 text-cds-orange" />}
+          <h2 className="text-xl font-bold">
+            {activeTab === 'upcoming' ? 'Próximos Eventos' : 'Histórico de Eventos'}
+          </h2>
         </div>
 
         {/* Content Grid */}
@@ -464,7 +473,7 @@ const App: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 pt-12 pb-8">
+      <footer className="bg-white border-t border-gray-200 pt-12 pb-8 mb-16 md:mb-0">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
             
@@ -506,6 +515,35 @@ const App: React.FC = () => {
           </div>
         </div>
       </footer>
+
+      {/* Mobile Bottom Navigation Bar (Fixed) */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 flex justify-around items-center h-[72px] shadow-[0_-4px_10px_rgba(0,0,0,0.05)] pb-safe">
+        <button 
+          onClick={() => setActiveTab('upcoming')}
+          className="flex flex-col items-center justify-center w-full h-full transition-colors active:scale-95"
+        >
+          <div className={`p-1.5 rounded-full mb-1 ${activeTab === 'upcoming' ? 'bg-orange-50' : 'bg-transparent'}`}>
+            <Trophy className={`w-6 h-6 ${activeTab === 'upcoming' ? 'text-cds-orange' : 'text-gray-400'}`} />
+          </div>
+          <span className={`text-[10px] font-bold uppercase tracking-wide ${activeTab === 'upcoming' ? 'text-cds-orange' : 'text-gray-400'}`}>
+            Agenda
+          </span>
+        </button>
+        
+        <div className="w-px h-8 bg-gray-100"></div>
+
+        <button 
+          onClick={() => setActiveTab('past')}
+          className="flex flex-col items-center justify-center w-full h-full transition-colors active:scale-95"
+        >
+          <div className={`p-1.5 rounded-full mb-1 ${activeTab === 'past' ? 'bg-orange-50' : 'bg-transparent'}`}>
+            <History className={`w-6 h-6 ${activeTab === 'past' ? 'text-cds-orange' : 'text-gray-400'}`} />
+          </div>
+          <span className={`text-[10px] font-bold uppercase tracking-wide ${activeTab === 'past' ? 'text-cds-orange' : 'text-gray-400'}`}>
+            Histórico
+          </span>
+        </button>
+      </div>
 
       {/* Overlays */}
       {showPolicy && <CookiePolicyModal onClose={() => setShowPolicy(false)} />}
