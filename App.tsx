@@ -308,7 +308,6 @@ const App: React.FC = () => {
             >
               Histórico
             </button>
-            <button onClick={() => setShowPolicy(true)} className="hover:text-cds-orange transition-colors">Cookies</button>
           </nav>
         </div>
       </header>
