@@ -1,7 +1,26 @@
 import { SportEvent } from './types';
 
 export const EVENTS: SportEvent[] = [
-  // PAST EVENTS (Note: user requested all to be past, but keeping structure ready for future)
+  {
+    id: '7',
+    title: 'Avance Global Cup 2026',
+    description: 'La Avance Global Cup 2026 es el principal torneo internacional para clubes de baloncesto de élite en categoría escolar y junior. El evento reunirá en The Embassy (Fuengirola) a 10 de los mejores equipos de 5 continentes, incluyendo academias de la NBA y clubes europeos, ofreciendo un espectáculo único con las futuras estrellas del baloncesto mundial.',
+    date: '29-31 Enero 2026',
+    time: '',
+    venue: 'The Embassy',
+    location: 'Fuengirola, Málaga',
+    status: 'upcoming',
+    url: 'https://www.avanceglobalcup.com/',
+    imageUrl: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?q=80&w=2070&auto=format&fit=crop',
+    category: 'Baloncesto',
+    extraInfo: {
+      label: 'Participantes',
+      value: '10 Equipos Internacionales'
+    },
+    isoStart: '20260129',
+    isoEnd: '20260201'
+  },
+  // PAST EVENTS
   {
     id: '1',
     title: 'Campeonato de España de Vóley Playa en Higuerón Resort',
@@ -19,7 +38,7 @@ export const EVENTS: SportEvent[] = [
       value: 'Mejores parejas nacionales'
     },
     isoStart: '20250828',
-    isoEnd: '20250901' // End date is exclusive for all-day events in calendars
+    isoEnd: '20250901'
   },
   {
     id: '2',
